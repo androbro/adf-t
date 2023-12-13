@@ -5,6 +5,7 @@ import {
 } from "@syncfusion/ej2-react-popups";
 import "./modal-dialog.css";
 import CardData from "../../../entities/flowCard";
+import Api from "../../../api/api";
 
 export type SetNodesFunction = (nodes: CardData[]) => void;
 
@@ -17,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ data, onClose }) => {
   const dialogInstance = useRef<DialogComponent>(null);
   const animationSettings: AnimationSettingsModel = { effect: "Zoom" };
   const [status, setStatus] = useState<boolean>(true);
-  const cardToSave: CardData | null = data;
+	const [cardToSave, setCardToSave] = useState<CardData | null>(null);
 
   const floatFocus = (args: { target: HTMLInputElement }): void => {
     args.target.parentElement?.classList.add("e-input-focus");
@@ -88,7 +89,7 @@ const Modal: React.FC<ModalProps> = ({ data, onClose }) => {
     if (!cardToSave) {
       alert("cardToSave is null");
     }
-	// Api.updateCard(cardToSave!);
+	Api.updateCard(cardToSave!);
 	data = cardToSave;
     onClose();
     console.log("saveCard", cardToSave);
@@ -99,8 +100,9 @@ const Modal: React.FC<ModalProps> = ({ data, onClose }) => {
       if (!cardToSave) {
         console.log("cardToSave is null");
       }
-      cardToSave!.data.title = event.target.value;
-      console.log(cardToSave);
+			data.data.title = event.target.value;
+			setCardToSave(data);
+      console.log('new input registered: '+ cardToSave);
     }
   };
   
@@ -109,8 +111,9 @@ const Modal: React.FC<ModalProps> = ({ data, onClose }) => {
       if (!cardToSave) {
         console.log("cardToSave is null");
       }
-      cardToSave!.data.subject = event.target.value;
-      console.log(cardToSave);
+			data.data.subject = event.target.value;
+			setCardToSave(data);
+      console.log('new input registered: '+ cardToSave);
     }
   };
 

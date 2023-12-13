@@ -24,7 +24,7 @@ const data: { [key: string]: unknown }[] = [
   },
   {
     nodeId: "02",
-    nodeText: "Deployment",
+    nodeText: "Flow",
     iconCss: "icon-thumbs-up-alt icon",
   },
   {
@@ -204,7 +204,6 @@ const Sidebar = ({ onClick, onToolbarPosChanged }: SidebarProps) => {
             </div>
             <div>
               <TreeViewComponent
-
                 id="mainTree"
                 cssClass="main-treeview"
                 fields={fields}

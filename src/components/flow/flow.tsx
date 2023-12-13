@@ -55,7 +55,7 @@ function Flow() {
       await FlowService.fetchAndSetEdgesData(setEdges);
     }
     fetchData();
-  }, []);
+  }, [setEdges, setNodes]);
 
   async function onAdd() {
     const cardDataArray = nodes.map((node) => mapNodeToCardData(node));
@@ -103,6 +103,7 @@ function Flow() {
 
   const handleNodeChange = useCallback(
     async (node: Node) => {
+			console.log('handleNodeChange');
       const cardDataArray = nodes.map((node) => mapNodeToCardData(node));
       await FlowService.updateCard(
         cardDataArray,
@@ -117,6 +118,7 @@ function Flow() {
   const onNodeChanged = useCallback(
     async (params: React.MouseEvent, node: Node) => {
       if (params) {
+				console.log('node changed');
         await handleNodeChange(node);
       }
     },
@@ -127,10 +129,7 @@ function Flow() {
     setSelectedNodeData(nodeData);
     setIsModalOpen(true);
   };
-
-  const onModalClose = () => {
-    onNodeChanged;
-  };
+	
 
   return (
     <div>
@@ -170,8 +169,8 @@ function Flow() {
           data={selectedNodeData}
           onClose={() => {
             setIsModalOpen(false);
-            console.log("modal closed");
-            onModalClose();
+            console.log("modal closed: "+ JSON.stringify(nodes));
+						onNodeChanged;
           }}
         />
       )}
